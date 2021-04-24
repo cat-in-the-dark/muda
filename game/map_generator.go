@@ -9,11 +9,11 @@ import (
 const (
 	CellRows     = 3
 	CellColumns  = 3
-	TreesPerCell = 20
-	CellWidth    = 340
-	CellHeight   = 192
-	CellMargin   = 16
-	TreeDistance = 32
+	TreesPerCell = 35
+	CellWidth    = 1600
+	CellHeight   = 900
+	CellMargin   = 32
+	TreeDistance = 100
 )
 
 var cells [CellRows * CellColumns]*Cell

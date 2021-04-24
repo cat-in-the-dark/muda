@@ -59,7 +59,7 @@ func LoadAssets() {
 	//PlayerRightTexture = assets.LoadImage("")
 
 	BG = assets.LoadImage("BG.png")
-	TreeTexture = assets.LoadImage("apple_tree2.png")
+	TreeTexture = assets.LoadImage("tree1.png")
 	ObeliskTexture = assets.LoadImage("obelisk.png")
 
 	playerIdleSheet := lib.NewSpriteSheet(PlayerIdleTexture, 64, 64)
