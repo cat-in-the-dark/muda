@@ -4,13 +4,16 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
-type GameScene struct{
-	player* Player
+type GameScene struct {
+	vp     *Viewport
+	player *Player
 }
 
 func NewGameScene() *GameScene {
+	vp := NewViewport()
 	return &GameScene{
-		player: NewPlayer(),
+		vp:     vp,
+		player: NewPlayer(vp),
 	}
 }
 
@@ -23,6 +26,10 @@ func (g *GameScene) Update() {
 }
 
 func (g *GameScene) Draw(screen *ebiten.Image) {
+	opt := &ebiten.DrawImageOptions{}
+	opt.GeoM.Translate(-g.vp.x, -g.vp.y)
+	screen.DrawImage(BG, opt)
+
 	g.player.Draw(screen)
 }
 

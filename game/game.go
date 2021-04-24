@@ -23,7 +23,7 @@ func NewGame() (*Game, error) {
 	sceneManager.Register(LogoSceneName, logo)
 	sceneManager.Register(GameSceneName, gameScene)
 
-	sceneManager.ChangeScene(LogoSceneName)
+	sceneManager.ChangeScene(GameSceneName)
 
 	g := &Game{
 		sceneManager: sceneManager,
