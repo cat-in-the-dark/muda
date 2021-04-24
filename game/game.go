@@ -14,15 +14,20 @@ func NewGame() (*Game, error) {
 
 	logo := lib.NewComboScene().
 		With(lib.NewTextureScene(LogoTexture, nil)).
-		With(lib.NewDelayScene(2, LogoSceneName, sceneManager))
+		With(lib.NewDelayScene(2, GameSceneName, sceneManager))
+
+	gameScene := lib.NewComboScene().
+		With(NewGameScene()).
+		With(lib.NewKeyAwaitScene(ebiten.KeyEscape, LogoSceneName, sceneManager))
 	treeGenerator := lib.NewComboScene().
 		With(NewTreeGenerator(5)).
 		With(lib.NewDelayScene(2, TreeGeneratorSceneName, sceneManager))
 
 	sceneManager.Register(LogoSceneName, logo)
+	sceneManager.Register(GameSceneName, gameScene)
 	sceneManager.Register(TreeGeneratorSceneName, treeGenerator)
 
-	sceneManager.ChangeScene(LogoSceneName)
+	sceneManager.ChangeScene(GameSceneName)
 	sceneManager.ChangeScene(TreeGeneratorSceneName)
 
 	g := &Game{

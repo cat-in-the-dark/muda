@@ -13,10 +13,15 @@ const (
 	TreeGeneratorSceneName = "TREE_GENERATOR"
 	GameSceneName = "GAME_SCENE"
 	GameEndName   = "GAME_END"
+
+	PlayerStartPosX = 0.0
+	PlayerStartPosY = 0.0
 )
 
 var (
-	LogoTexture *ebiten.Image
+	LogoTexture   *ebiten.Image
+	PlayerTexture *ebiten.Image
+	BG            *ebiten.Image
 	TreeTexture *ebiten.Image
 
 	Animator *lib.AnimationSystem
@@ -27,5 +32,7 @@ var (
 func LoadAssets() {
 	Animator = lib.NewAnimationSystem()
 	LogoTexture = assets.LoadImage("logo.png")
+	PlayerTexture = assets.LoadImage("player.png")
+	BG = assets.LoadImage("BG.png")
 	TreeTexture = assets.LoadImage("apple_tree2.png")
 }
