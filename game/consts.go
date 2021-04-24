@@ -7,22 +7,23 @@ import (
 )
 
 const (
-	ScreenHeight  = 576
-	ScreenWidth   = 1024
-	LogoSceneName = "LOGO"
+	ScreenHeight           = 576
+	ScreenWidth            = 1024
+	LogoSceneName          = "LOGO"
 	TreeGeneratorSceneName = "TREE_GENERATOR"
-	GameSceneName = "GAME_SCENE"
-	GameEndName   = "GAME_END"
+	GameSceneName          = "GAME_SCENE"
+	GameEndName            = "GAME_END"
 
-	PlayerStartPosX = 0.0
-	PlayerStartPosY = 0.0
+	PlayerStartPosX = 128
+	PlayerStartPosY = 128
 )
 
 var (
-	LogoTexture   *ebiten.Image
-	PlayerTexture *ebiten.Image
-	BG            *ebiten.Image
-	TreeTexture *ebiten.Image
+	LogoTexture    *ebiten.Image
+	PlayerTexture  *ebiten.Image
+	BG             *ebiten.Image
+	ObeliskTexture *ebiten.Image
+	TreeTexture    *ebiten.Image
 
 	Animator *lib.AnimationSystem
 )
@@ -35,4 +36,5 @@ func LoadAssets() {
 	PlayerTexture = assets.LoadImage("player.png")
 	BG = assets.LoadImage("BG.png")
 	TreeTexture = assets.LoadImage("apple_tree2.png")
+	ObeliskTexture = assets.LoadImage("obelisk.png")
 }

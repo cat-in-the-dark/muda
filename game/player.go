@@ -2,7 +2,6 @@ package sszb
 
 import (
 	"github.com/hajimehoshi/ebiten/v2"
-	"log"
 )
 
 type Player struct {
@@ -48,7 +47,6 @@ func (p *Player) Draw(screen *ebiten.Image) {
 	x := p.x - p.vp.x
 	y := p.y - p.vp.y
 
-	log.Printf("%f %f", x, y)
 	opt.GeoM.Scale(4, 4)
 	opt.GeoM.Translate(x, y)
 	screen.DrawImage(p.texture, opt)

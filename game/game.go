@@ -18,17 +18,19 @@ func NewGame() (*Game, error) {
 
 	gameScene := lib.NewComboScene().
 		With(NewGameScene()).
-		With(lib.NewKeyAwaitScene(ebiten.KeyEscape, LogoSceneName, sceneManager))
+		With(lib.NewKeyAwaitScene(ebiten.KeyEscape, LogoSceneName, sceneManager)).
+		With(lib.NewKeyAwaitScene(ebiten.KeySpace, TreeGeneratorSceneName, sceneManager))
+
 	treeGenerator := lib.NewComboScene().
 		With(NewTreeGenerator(5)).
-		With(lib.NewDelayScene(2, TreeGeneratorSceneName, sceneManager))
+		With(lib.NewKeyAwaitScene(ebiten.KeyEscape, LogoSceneName, sceneManager)).
+		With(lib.NewKeyAwaitScene(ebiten.KeySpace, GameSceneName, sceneManager))
 
 	sceneManager.Register(LogoSceneName, logo)
 	sceneManager.Register(GameSceneName, gameScene)
 	sceneManager.Register(TreeGeneratorSceneName, treeGenerator)
 
 	sceneManager.ChangeScene(GameSceneName)
-	sceneManager.ChangeScene(TreeGeneratorSceneName)
 
 	g := &Game{
 		sceneManager: sceneManager,

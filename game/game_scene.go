@@ -5,8 +5,9 @@ import (
 )
 
 type GameScene struct {
-	vp     *Viewport
-	player *Player
+	vp      *Viewport
+	player  *Player
+	obelisk *Obelisk
 }
 
 func NewGameScene() *GameScene {
@@ -14,6 +15,7 @@ func NewGameScene() *GameScene {
 	return &GameScene{
 		vp:     vp,
 		player: NewPlayer(vp),
+		obelisk: NewObelisk(vp),
 	}
 }
 
@@ -30,6 +32,7 @@ func (g *GameScene) Draw(screen *ebiten.Image) {
 	opt.GeoM.Translate(-g.vp.x, -g.vp.y)
 	screen.DrawImage(BG, opt)
 
+	g.obelisk.Draw(screen)
 	g.player.Draw(screen)
 }
 
