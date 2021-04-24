@@ -51,7 +51,7 @@ func LoadAssets() {
 	Animator = lib.NewAnimationSystem()
 	LogoTexture = assets.LoadImage("logo.png")
 
-	TreasureTexture = assets.LoadImage("treasure")
+	TreasureTexture = assets.LoadImage("treasure.png")
 
 	PlayerIdleTexture = assets.LoadImage("stay.png")
 	PlayerDownTexture = assets.LoadImage("walking_down.png")
