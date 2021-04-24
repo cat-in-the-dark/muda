@@ -35,6 +35,8 @@ var (
 	PlayerUpTexture    *ebiten.Image
 	PlayerRightTexture *ebiten.Image
 
+	TreasureTexture *ebiten.Image
+
 	Animator        *lib.AnimationSystem
 	PlayerIdleAnim  *lib.Animation
 	PlayerDownAnim  *lib.Animation
@@ -48,7 +50,8 @@ var (
 func LoadAssets() {
 	Animator = lib.NewAnimationSystem()
 	LogoTexture = assets.LoadImage("logo.png")
-	PlayerTexture = assets.LoadImage("player.png")
+
+	TreasureTexture = assets.LoadImage("treasure")
 
 	PlayerIdleTexture = assets.LoadImage("stay.png")
 	PlayerDownTexture = assets.LoadImage("walking_down.png")
