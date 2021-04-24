@@ -35,7 +35,6 @@ func (g *GameScene) Draw(screen *ebiten.Image) {
 
 	opt := &ebiten.DrawImageOptions{}
 	opt.GeoM.Translate(-g.vp.x, -g.vp.y)
-	screen.DrawImage(BG, opt)
 
 	for _, tree := range g.gameMap.trees {
 		tree.Draw(screen)

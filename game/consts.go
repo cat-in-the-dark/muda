@@ -26,7 +26,6 @@ var (
 
 	LogoTexture    *ebiten.Image
 	PlayerTexture  *ebiten.Image
-	BG             *ebiten.Image
 	ObeliskTexture *ebiten.Image
 	TreeTexture    *ebiten.Image
 
@@ -35,6 +34,7 @@ var (
 	PlayerUpTexture    *ebiten.Image
 	PlayerRightTexture *ebiten.Image
 
+
 	TreasureTexture *ebiten.Image
 
 	Animator        *lib.AnimationSystem
@@ -42,7 +42,6 @@ var (
 	PlayerDownAnim  *lib.Animation
 	PlayerUpAnim    *lib.Animation
 	PlayerRightAnim *lib.Animation
-	PlayerLeftAnim  *lib.Animation
 )
 
 // LoadAssets loads textures and other global variables into the scope
@@ -56,24 +55,20 @@ func LoadAssets() {
 	PlayerIdleTexture = assets.LoadImage("stay.png")
 	PlayerDownTexture = assets.LoadImage("walking_down.png")
 	PlayerUpTexture = assets.LoadImage("walking_up.png")
-	//PlayerRightTexture = assets.LoadImage("")
+	PlayerRightTexture = assets.LoadImage("walking_right.png")
 
-	BG = assets.LoadImage("BG.png")
 	TreeTexture = assets.LoadImage("tree1.png")
 	ObeliskTexture = assets.LoadImage("obelisk.png")
 
 	playerIdleSheet := lib.NewSpriteSheet(PlayerIdleTexture, 64, 64)
 	playerDownSheet := lib.NewSpriteSheet(PlayerDownTexture, 64, 64)
 	playerUpSheet := lib.NewSpriteSheet(PlayerUpTexture, 64, 64)
+	playerRightSheet := lib.NewSpriteSheet(PlayerRightTexture, 64, 64)
 
 	PlayerIdleAnim = Animator.NewLooping(playerIdleSheet, 36, []int{0, 1})
-
 	PlayerDownAnim = Animator.NewLooping(playerDownSheet, 8, []int{0, 1, 2, 3, 4, 5, 6, 7, 8})
 	PlayerUpAnim = Animator.NewLooping(playerUpSheet, 8, []int{0, 1, 2, 3, 4, 5, 6, 7, 8})
-
-	// TODO: fix animation sheets
-	PlayerLeftAnim = Animator.NewLooping(playerUpSheet, 8, []int{0, 1, 2, 3, 4, 5, 6, 7, 8})
-	PlayerRightAnim = Animator.NewLooping(playerUpSheet, 8, []int{0, 1, 2, 3, 4, 5, 6, 7, 8})
+	PlayerRightAnim = Animator.NewLooping(playerRightSheet, 8, []int{0, 1, 2, 3, 4, 5, 6})
 }
 
 func HexToColor(hexColor string) color.Color {

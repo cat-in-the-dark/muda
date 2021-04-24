@@ -2,23 +2,24 @@ package sszb
 
 import (
 	"github.com/hajimehoshi/ebiten/v2"
+	"log"
 )
 
 type Player struct {
-	x       float64
-	y       float64
-	speed   float64
-	vp      *Viewport
+	x     float64
+	y     float64
+	speed float64
+	vp    *Viewport
 	state string
 }
 
 func NewPlayer(vp *Viewport) *Player {
 	return &Player{
-		x:         PlayerStartPosX,
-		y:         PlayerStartPosY,
-		speed:     5,
-		vp:        vp,
-		state:     "idle",
+		x:     PlayerStartPosX,
+		y:     PlayerStartPosY,
+		speed: 5,
+		vp:    vp,
+		state: "idle",
 	}
 }
 
@@ -47,24 +48,34 @@ func (p *Player) Update() {
 }
 
 func (p *Player) Draw(screen *ebiten.Image) {
+	var frame *ebiten.Image
+	switch p.state {
+	case "idle":
+		frame = PlayerIdleAnim.GetFrame()
+	case "up":
+		frame = PlayerUpAnim.GetFrame()
+	case "down":
+		frame = PlayerDownAnim.GetFrame()
+	case "left":
+		frame = PlayerRightAnim.GetFrame()
+	case "right":
+		frame = PlayerRightAnim.GetFrame()
+	default:
+		log.Panicf("Unknown animation frame %s", p.state)
+	}
+
 	opt := &ebiten.DrawImageOptions{}
 
 	x := p.x - p.vp.x
 	y := p.y - p.vp.y
 
+	if p.state == "left" {
+		opt.GeoM.Scale(-1, 1)
+		w, _ := frame.Size()
+		opt.GeoM.Translate(float64(w), 0)
+	}
 	opt.GeoM.Translate(x, y)
 
-	switch p.state {
-	case "idle":
-		screen.DrawImage(PlayerIdleAnim.GetFrame(), opt)
-	case "up":
-		screen.DrawImage(PlayerUpAnim.GetFrame(), opt)
-	case "down":
-		screen.DrawImage(PlayerDownAnim.GetFrame(), opt)
-	case "left":
-		screen.DrawImage(PlayerLeftAnim.GetFrame(), opt)
-	case "right":
-		screen.DrawImage(PlayerRightAnim.GetFrame(), opt)
-	}
+	screen.DrawImage(frame, opt)
 
 }
