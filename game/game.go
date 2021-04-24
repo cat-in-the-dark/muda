@@ -15,10 +15,15 @@ func NewGame() (*Game, error) {
 	logo := lib.NewComboScene().
 		With(lib.NewTextureScene(LogoTexture, nil)).
 		With(lib.NewDelayScene(2, LogoSceneName, sceneManager))
+	treeGenerator := lib.NewComboScene().
+		With(NewTreeGenerator(5)).
+		With(lib.NewDelayScene(2, TreeGeneratorSceneName, sceneManager))
 
 	sceneManager.Register(LogoSceneName, logo)
+	sceneManager.Register(TreeGeneratorSceneName, treeGenerator)
 
 	sceneManager.ChangeScene(LogoSceneName)
+	sceneManager.ChangeScene(TreeGeneratorSceneName)
 
 	g := &Game{
 		sceneManager: sceneManager,

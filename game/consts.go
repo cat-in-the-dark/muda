@@ -10,12 +10,14 @@ const (
 	ScreenHeight  = 576
 	ScreenWidth   = 1024
 	LogoSceneName = "LOGO"
+	TreeGeneratorSceneName = "TREE_GENERATOR"
 	GameSceneName = "GAME_SCENE"
 	GameEndName   = "GAME_END"
 )
 
 var (
 	LogoTexture *ebiten.Image
+	TreeTexture *ebiten.Image
 
 	Animator *lib.AnimationSystem
 )
@@ -25,4 +27,5 @@ var (
 func LoadAssets() {
 	Animator = lib.NewAnimationSystem()
 	LogoTexture = assets.LoadImage("logo.png")
+	TreeTexture = assets.LoadImage("apple_tree2.png")
 }
