@@ -16,6 +16,7 @@ const (
 
 var (
 	LogoTexture *ebiten.Image
+	PlayerTexture *ebiten.Image
 
 	Animator *lib.AnimationSystem
 )
@@ -25,4 +26,5 @@ var (
 func LoadAssets() {
 	Animator = lib.NewAnimationSystem()
 	LogoTexture = assets.LoadImage("logo.png")
+	PlayerTexture = assets.LoadImage("player.png")
 }

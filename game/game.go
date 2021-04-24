@@ -14,9 +14,14 @@ func NewGame() (*Game, error) {
 
 	logo := lib.NewComboScene().
 		With(lib.NewTextureScene(LogoTexture, nil)).
-		With(lib.NewDelayScene(2, LogoSceneName, sceneManager))
+		With(lib.NewDelayScene(2, GameSceneName, sceneManager))
+
+	gameScene := lib.NewComboScene().
+		With(NewGameScene()).
+		With(lib.NewKeyAwaitScene(ebiten.KeyEscape, LogoSceneName, sceneManager))
 
 	sceneManager.Register(LogoSceneName, logo)
+	sceneManager.Register(GameSceneName, gameScene)
 
 	sceneManager.ChangeScene(LogoSceneName)
 
