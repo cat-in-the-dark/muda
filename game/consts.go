@@ -7,14 +7,11 @@ import (
 )
 
 const (
-	ScreenHeight       = 768
-	ScreenWidth        = 1366
-	LogoSceneName      = "LOGO"
-	Tutorial1SceneName = "TUTORIAL_1"
-	Tutorial2SceneName = "TUTORIAL_2"
-	Tutorial3SceneName = "TUTORIAL_3"
-	GameScene          = "GAME_SCENE"
-	GameEnd            = "GAME_END"
+	ScreenHeight  = 576
+	ScreenWidth   = 1024
+	LogoSceneName = "LOGO"
+	GameSceneName = "GAME_SCENE"
+	GameEndName   = "GAME_END"
 )
 
 var (

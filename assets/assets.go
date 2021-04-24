@@ -12,10 +12,6 @@ import (
 //go:embed textures
 var textures embed.FS
 
-//go:embed sounds
-var sounds embed.FS
-
-
 // LoadImage reads an image by name from the embedded textures folder.
 // Panic on error
 func LoadImage(name string) *ebiten.Image {
