@@ -5,22 +5,25 @@ import (
 )
 
 type GameScene struct {
-	vp      *Viewport
-	player  *Player
-	obelisk *Obelisk
+	vp           *Viewport
+	player       *Player
+	obelisk      *Obelisk
+	mapGenerator *MapGenerator
+	gameMap      *Map
 }
 
 func NewGameScene() *GameScene {
 	vp := NewViewport()
 	return &GameScene{
-		vp:     vp,
-		player: NewPlayer(vp),
-		obelisk: NewObelisk(vp),
+		vp:           vp,
+		player:       NewPlayer(vp),
+		obelisk:      NewObelisk(vp),
+		mapGenerator: NewMapGenerator(20, vp),
 	}
 }
 
 func (g *GameScene) Activate() {
-
+	g.gameMap = g.mapGenerator.Generate()
 }
 
 func (g *GameScene) Update() {
@@ -32,6 +35,9 @@ func (g *GameScene) Draw(screen *ebiten.Image) {
 	opt.GeoM.Translate(-g.vp.x, -g.vp.y)
 	screen.DrawImage(BG, opt)
 
+	for _, tree := range g.gameMap.trees {
+		tree.Draw(screen)
+	}
 	g.obelisk.Draw(screen)
 	g.player.Draw(screen)
 }
