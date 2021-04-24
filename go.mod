@@ -1,4 +1,4 @@
-module github.com/cat-in-the-dark/sszb
+module github.com/cat-in-the-dark/muda
 
 go 1.16
 
