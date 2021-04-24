@@ -2,15 +2,18 @@ package sszb
 
 import (
 	"github.com/hajimehoshi/ebiten/v2"
+	"math"
 	"math/rand"
 )
 
 const (
 	CellRows     = 3
 	CellColumns  = 3
-	TreesPerCell = 10
+	TreesPerCell = 20
 	CellWidth    = 340
 	CellHeight   = 192
+	CellMargin   = 16
+	TreeDistance = 32
 )
 
 var cells [CellRows * CellColumns]*Cell
@@ -55,11 +58,40 @@ func NewTreeGenerator(seed int64) *TreeGenerator {
 func GenerateTrees(size int, cell *Cell) []*Tree {
 	trees := make([]*Tree, size)
 	for i := range trees {
-		x := GenerateCoordinate(cell.x, cell.x+cell.width)
-		y := GenerateCoordinate(cell.y, cell.y+cell.height)
-		trees[i] = NewTree(NewVector2(x, y))
+		treeGenerated := false
+		var pos *Vector2 = nil
+		for {
+			x := GenerateCoordinate(cell.x, cell.x+cell.width)
+			y := GenerateCoordinate(cell.y, cell.y+cell.height)
+			if CheckTreePosition(x, y, trees) {
+				pos = NewVector2(x, y)
+				treeGenerated = true
+			}
+			if treeGenerated {
+				break
+			}
+		}
+
+		trees[i] = NewTree(pos)
 	}
 	return trees
+}
+
+func CheckTreePosition(x, y float64, trees []*Tree) bool {
+	noOverlap := true
+	for i := 0; i < cap(trees); i++ {
+		tree := trees[i]
+		if tree == nil {
+			break
+		}
+		pos := tree.position
+		dist := math.Sqrt(math.Pow(x-pos.x, 2) + math.Pow(y-pos.y, 2))
+		noOverlap = noOverlap && dist > TreeDistance
+		if !noOverlap {
+			break
+		}
+	}
+	return noOverlap
 }
 
 func GenerateCoordinate(min, max int32) float64 {
@@ -70,7 +102,11 @@ func (tg *TreeGenerator) Activate() {
 	rand.Seed(tg.seed)
 	for i := 0; i < CellRows; i++ {
 		for j := 0; j < CellColumns; j++ {
-			cell := NewCell(int32(j * CellWidth), int32(i * CellHeight), int32(CellWidth), int32(CellHeight))
+			cell := NewCell(
+				int32(j*(CellWidth+CellMargin)),
+				int32(i*(CellHeight+CellMargin)),
+				int32(CellWidth-CellMargin),
+				int32(CellHeight-CellMargin))
 			cell.trees = GenerateTrees(TreesPerCell, cell)
 			cells[j+i*CellColumns] = cell
 		}
