@@ -33,6 +33,7 @@ func NewGame() (*Game, error) {
 }
 
 func (g Game) Update() error {
+	Animator.Update()
 	g.sceneManager.Update()
 	return nil
 }

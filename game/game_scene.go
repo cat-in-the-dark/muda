@@ -31,6 +31,8 @@ func (g *GameScene) Update() {
 }
 
 func (g *GameScene) Draw(screen *ebiten.Image) {
+	screen.Fill(ColorBack)
+
 	opt := &ebiten.DrawImageOptions{}
 	opt.GeoM.Translate(-g.vp.x, -g.vp.y)
 	screen.DrawImage(BG, opt)
