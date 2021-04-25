@@ -7,7 +7,6 @@ import (
 type GameScene struct {
 	vp           *Viewport
 	player       *Player
-	obelisk      *Obelisk
 	mapGenerator *MapGenerator
 	gameMap      *Map
 }
@@ -17,7 +16,6 @@ func NewGameScene() *GameScene {
 	return &GameScene{
 		vp:           vp,
 		player:       NewPlayer(vp),
-		obelisk:      NewObelisk(vp),
 		mapGenerator: NewMapGenerator(20, vp),
 	}
 }
@@ -39,10 +37,12 @@ func (g *GameScene) Draw(screen *ebiten.Image) {
 	for _, tree := range g.gameMap.trees {
 		tree.Draw(screen)
 	}
+	for _, obelisk := range g.gameMap.obelisks {
+		obelisk.Draw(screen)
+	}
 	for _, treasure := range g.gameMap.treasures {
 		treasure.Draw(screen)
 	}
-	g.obelisk.Draw(screen)
 	g.player.Draw(screen)
 }
 

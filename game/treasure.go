@@ -5,16 +5,18 @@ import (
 )
 
 type Treasure struct {
-	texture *ebiten.Image
-	pos     *Vector2
-	vp      *Viewport
+	texture     *ebiten.Image
+	pos         *Vector2
+	vp          *Viewport
+	obeliskType int32
 }
 
-func NewTreasure(pos *Vector2, vp *Viewport) *Treasure {
+func NewTreasure(pos *Vector2, vp *Viewport, ot int32) *Treasure {
 	return &Treasure{
-		texture: TreasureTexture,
-		pos:     pos,
-		vp:      vp,
+		texture:     TreasureTexture,
+		pos:         pos,
+		vp:          vp,
+		obeliskType: ot,
 	}
 }
 

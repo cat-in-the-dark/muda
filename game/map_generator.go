@@ -24,6 +24,7 @@ var cells [CellRows * CellColumns]*Cell
 type Map struct {
 	trees     []*Tree
 	treasures []*Treasure
+	obelisks  []*Obelisk
 }
 
 type MapGenerator struct {
@@ -65,9 +66,21 @@ func (mg *MapGenerator) GenerateTreasures(size int) []*Treasure {
 		y := GenerateCoordinate(CellMargin, MapHeight-CellMargin)
 		pos := NewVector2(x, y)
 		log.Printf("Generated treasure at x:%f, y:%f", pos.x, pos.y)
-		treasures[i] = NewTreasure(pos, mg.vp)
+		treasures[i] = NewTreasure(pos, mg.vp, rand.Int31n(int32(size)))
 	}
 	return treasures
+}
+
+func (mg *MapGenerator) GenerateObelisks(size int) []*Obelisk {
+	obelisks := make([]*Obelisk, size)
+	for i := range obelisks {
+		x := GenerateCoordinate(CellMargin, MapWidth-CellMargin)
+		y := GenerateCoordinate(CellMargin, MapHeight-CellMargin)
+		pos := NewVector2(x, y)
+		log.Printf("Generated obelisk at x:%f, y:%f", pos.x, pos.y)
+		obelisks[i] = NewObelisk(pos, mg.vp, rand.Int31n(int32(size)))
+	}
+	return obelisks
 }
 
 func CheckTreePosition(x, y float64, trees []*Tree) bool {
@@ -110,10 +123,12 @@ func (mg *MapGenerator) Generate() *Map {
 			trees = append(trees, tree)
 		}
 	}
+	obelisks := mg.GenerateObelisks(TreasureCount)
 	treasures := mg.GenerateTreasures(TreasureCount)
 
 	return &Map{
 		trees:     trees,
 		treasures: treasures,
+		obelisks:  obelisks,
 	}
 }
