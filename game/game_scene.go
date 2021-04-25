@@ -3,6 +3,7 @@ package sszb
 import (
 	"github.com/hajimehoshi/ebiten/v2"
 	"log"
+	"sort"
 )
 
 type GameScene struct {
@@ -33,16 +34,29 @@ func (g *GameScene) Update() {
 func (g *GameScene) Draw(screen *ebiten.Image) {
 	screen.Fill(ColorBack)
 
+	drawables := make([]Drawable, len(g.gameMap.trees)+len(g.gameMap.obelisks)+len(g.gameMap.treasures)+1)
+
+	i := 0
 	for _, tree := range g.gameMap.trees {
-		tree.Draw(screen)
+		drawables[i] = tree
+		i++
 	}
 	for _, obelisk := range g.gameMap.obelisks {
-		obelisk.Draw(screen)
+		drawables[i] = obelisk
+		i++
 	}
 	for _, treasure := range g.gameMap.treasures {
-		treasure.Draw(screen)
+		drawables[i] = treasure
+		i++
 	}
-	g.player.Draw(screen)
+	drawables[i] = g.player
+
+	sort.Slice(drawables, func(i, j int) bool {
+		return drawables[i].GetPos().y < drawables[j].GetPos().y
+	})
+	for _, drawable := range drawables {
+		drawable.Draw(screen)
+	}
 }
 
 func (g *GameScene) Exit() {

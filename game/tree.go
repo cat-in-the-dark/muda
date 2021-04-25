@@ -34,3 +34,7 @@ func (tr *Tree) Draw(screen *ebiten.Image) {
 
 func (tr *Tree) Exit() {
 }
+
+func (tr *Tree) GetPos() *Vector2 {
+	return tr.pos
+}
