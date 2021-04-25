@@ -18,6 +18,7 @@ type GameScene struct {
 	hud           *Hud
 	status        *Status
 	sm            *lib.SceneManager
+	animation     *AnimationAt
 }
 
 func NewGameScene(sm *lib.SceneManager) *GameScene {
@@ -31,6 +32,7 @@ func NewGameScene(sm *lib.SceneManager) *GameScene {
 		hud:           NewHud(),
 		status:        NewStatus(),
 		sm:            sm,
+		animation:     nil,
 	}
 }
 
@@ -78,12 +80,20 @@ func (g *GameScene) Draw(screen *ebiten.Image) {
 		drawable.Draw(screen)
 	}
 
+	if g.animation != nil {
+		g.animation.Draw(screen)
+		log.Printf("ANIM")
+		if g.animation.IsFinished() {
+			g.animation = nil
+		}
+	}
+
 	g.hud.Draw(screen)
 	g.status.Draw(screen)
 }
 
 func (g *GameScene) Exit() {
-
+	g.animation = nil
 }
 
 func (g *GameScene) checkCollisions() {
@@ -95,6 +105,13 @@ func (g *GameScene) checkCollisions() {
 	for i, treasure := range g.gameMap.treasures {
 		if Collide(treasure, g.player) {
 			trCollected, trIndex, trType = g.collideWithTreasure(treasure, i)
+			if trCollected {
+				g.animation = NewAnimationAt(
+					MagicAnim,
+					NewVector2(treasure.pos.x, treasure.pos.y),
+					g.vp,
+				)
+			}
 		}
 	}
 	for i, obelisk := range g.gameMap.obelisks {

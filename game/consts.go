@@ -12,12 +12,12 @@ import (
 )
 
 const (
-	FontSize               = 24
-	ScreenHeight           = 576
-	ScreenWidth            = 1024
-	LogoSceneName          = "LOGO"
-	GameSceneName          = "GAME_SCENE"
-	GameEndName            = "GAME_END"
+	FontSize      = 24
+	ScreenHeight  = 576
+	ScreenWidth   = 1024
+	LogoSceneName = "LOGO"
+	GameSceneName = "GAME_SCENE"
+	GameEndName   = "GAME_END"
 
 	PlayerStartPosX = 2400
 	PlayerStartPosY = 1350
@@ -58,6 +58,7 @@ var (
 	PlayerDownAnim  *lib.Animation
 	PlayerUpAnim    *lib.Animation
 	PlayerRightAnim *lib.Animation
+	MagicAnim       *lib.Animation
 
 	DefaultFont font.Face
 )
@@ -112,6 +113,10 @@ func LoadAssets() {
 	PlayerDownAnim = Animator.NewLooping(playerDownSheet, 8, []int{0, 1, 2, 3, 4, 5, 6, 7, 8})
 	PlayerUpAnim = Animator.NewLooping(playerUpSheet, 8, []int{0, 1, 2, 3, 4, 5, 6, 7, 8})
 	PlayerRightAnim = Animator.NewLooping(playerRightSheet, 8, []int{0, 1, 2, 3, 4, 5, 6})
+
+	magicTexture := assets.LoadImage("magic.png")
+	magicSheet := lib.NewSpriteSheet(magicTexture, 32, 32)
+	MagicAnim = Animator.NewLooping(magicSheet, 8, []int{0,1,2,3,4,5,6})
 
 	var err error
 	tt := assets.LoadFont("cyrillic_pixel.ttf")

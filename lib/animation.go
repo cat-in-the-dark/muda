@@ -75,6 +75,10 @@ func (anim *Animation) GetSpriteSize() (int, int) {
 	return anim.sheet.spriteWidth, anim.sheet.spriteHeight
 }
 
+func (anim* Animation) IsFinished() bool {
+	return anim.finished
+}
+
 type SpriteSheet struct {
 	spriteWidth  int
 	spriteHeight int
