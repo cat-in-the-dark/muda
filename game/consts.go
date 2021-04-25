@@ -23,9 +23,11 @@ const (
 	PlayerStartPosX = 2400
 	PlayerStartPosY = 1350
 
-	HudWidth   = 512
+	HudWidth   = 784
 	HudHeight  = 128
 	HudOffsetY = 32
+
+	JustTextProba = 60 * 6
 )
 
 var (

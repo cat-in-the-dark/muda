@@ -36,22 +36,19 @@ func NewPlayer(vp *Viewport) *Player {
 
 func (p *Player) Update() {
 	p.state = "idle"
-	if ebiten.IsKeyPressed(ebiten.KeyUp) {
+	if ebiten.IsKeyPressed(ebiten.KeyUp) || ebiten.IsKeyPressed(ebiten.KeyW) {
 		p.pos.y -= p.speed
 		p.vp.y -= p.speed
 		p.state = "up"
-	}
-	if ebiten.IsKeyPressed(ebiten.KeyDown) {
+	} else if ebiten.IsKeyPressed(ebiten.KeyDown) || ebiten.IsKeyPressed(ebiten.KeyS) {
 		p.pos.y += p.speed
 		p.vp.y += p.speed
 		p.state = "down"
-	}
-	if ebiten.IsKeyPressed(ebiten.KeyLeft) {
+	} else if ebiten.IsKeyPressed(ebiten.KeyLeft) || ebiten.IsKeyPressed(ebiten.KeyA) {
 		p.pos.x -= p.speed
 		p.vp.x -= p.speed
 		p.state = "left"
-	}
-	if ebiten.IsKeyPressed(ebiten.KeyRight) {
+	} else if ebiten.IsKeyPressed(ebiten.KeyRight) || ebiten.IsKeyPressed(ebiten.KeyD) {
 		p.pos.x += p.speed
 		p.vp.x += p.speed
 		p.state = "right"

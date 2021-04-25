@@ -4,6 +4,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"log"
+	"math/rand"
 	"sort"
 )
 
@@ -34,8 +35,19 @@ func NewGameScene() *GameScene {
 func (g *GameScene) Activate() {
 	g.gameMap = g.mapGenerator.Generate()
 	g.treasureLeft = g.gameMap.treasureTotal
-	g.hud.Show(NewMessage(WelcomeMessage, 5*10))
 	g.status.Show(&g.treasureCount)
+	g.showHelp()
+}
+
+func (g *GameScene) showHelp() {
+	g.hud.ShowReset(NewMessage(WelcomeMessage, 60*10))
+}
+
+func (g *GameScene) showJustText() {
+	if rand.Int31n(JustTextProba) == 0 {
+		text := JustText[rand.Int31n(int32(len(JustText)))]
+		g.hud.Show(NewMessage(text, 60*15))
+	}
 }
 
 func (g *GameScene) Update() {
@@ -43,6 +55,11 @@ func (g *GameScene) Update() {
 	g.checkCollisions()
 	g.hud.Update()
 	g.status.Update()
+
+	if inpututil.IsKeyJustPressed(ebiten.KeySpace) || inpututil.IsKeyJustPressed(ebiten.KeyEnter) {
+		g.showHelp()
+	}
+	g.showJustText()
 }
 
 func (g *GameScene) Draw(screen *ebiten.Image) {
@@ -120,7 +137,7 @@ func (g *GameScene) collideWithTreasure(treasure *Treasure, index int) (bool, in
 		return true, index, int(treasure.treasureType)
 	}
 
-	g.hud.Show(NewMessage(SeeTreasure[treasure.treasureType], 1))
+	g.hud.ShowReset(NewMessage(SeeTreasure[treasure.treasureType], 1))
 
 	return false, -1, -1
 }
@@ -130,7 +147,7 @@ func (g *GameScene) collideWithObelisk(obelisk *Obelisk, index int) (bool, int) 
 		return true, int(obelisk.treasureType)
 	}
 
-	g.hud.Show(NewMessage(SeeObelisk[obelisk.treasureType], 1))
+	g.hud.ShowReset(NewMessage(SeeObelisk[obelisk.treasureType], 1))
 
 	return false, -1
 }

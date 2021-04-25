@@ -66,6 +66,11 @@ func (h *Hud) Show(message *Message) {
 	h.messages = append(h.messages, message)
 }
 
+func (h *Hud) ShowReset(message *Message) {
+	h.messages = make([]*Message, 1)
+	h.messages[0] = message
+}
+
 func (h *Hud) Draw(screen *ebiten.Image) {
 	if len(h.messages) == 0 {
 		return
