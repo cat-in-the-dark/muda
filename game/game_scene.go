@@ -132,7 +132,8 @@ func (g *GameScene) checkCollisions() {
 		g.treasureCount[obType] = 0
 
 		for _, obelisk := range g.gameMap.obelisks {
-			if obelisk.treasureType == obType {
+			if obelisk.treasureType == obType && g.treasureLeft[obType] == 0 {
+				log.Printf("BUM!!! %d", obType)
 				obelisk.texture = ObeliskDoneTexture
 				obelisk.treasureType = FinalType
 			}
