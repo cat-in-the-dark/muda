@@ -34,7 +34,7 @@ func NewGameScene() *GameScene {
 func (g *GameScene) Activate() {
 	g.gameMap = g.mapGenerator.Generate()
 	g.treasureLeft = g.gameMap.treasureTotal
-	g.hud.Show(NewMessage("Охайо", 60*10))
+	g.hud.Show(NewMessage(WelcomeMessage, 5*10))
 	g.status.Show(&g.treasureCount)
 }
 
