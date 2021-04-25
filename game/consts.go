@@ -16,7 +16,6 @@ const (
 	ScreenHeight           = 576
 	ScreenWidth            = 1024
 	LogoSceneName          = "LOGO"
-	TreeGeneratorSceneName = "TREE_GENERATOR"
 	GameSceneName          = "GAME_SCENE"
 	GameEndName            = "GAME_END"
 

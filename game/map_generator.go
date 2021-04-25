@@ -8,10 +8,11 @@ import (
 
 const (
 	TreasureTypes = 6
+	FinalType     = TreasureTypes // alias
 	CellRows      = 3
 	CellColumns   = 3
 	TreesPerCell  = 35
-	TreasureCount = 100
+	TreasureCount = 10
 	ObeliskCount  = 12
 	CellWidth     = 1600
 	CellHeight    = 900
