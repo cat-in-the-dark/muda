@@ -12,6 +12,7 @@ const (
 	CellColumns   = 3
 	TreesPerCell  = 35
 	TreasureCount = 100
+	ObeliskCount  = 12
 	CellWidth     = 1600
 	CellHeight    = 900
 	CellMargin    = 32
@@ -128,7 +129,7 @@ func (mg *MapGenerator) Generate() *Map {
 			trees = append(trees, tree)
 		}
 	}
-	obelisks := mg.GenerateObelisks(TreasureCount)
+	obelisks := mg.GenerateObelisks(ObeliskCount)
 	treasures := mg.GenerateTreasures(TreasureCount)
 
 	return &Map{
