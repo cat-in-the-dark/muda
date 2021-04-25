@@ -10,7 +10,7 @@ const (
 	CellRows      = 3
 	CellColumns   = 3
 	TreesPerCell  = 35
-	TreasureCount = 5
+	TreasureCount = 100
 	CellWidth     = 1600
 	CellHeight    = 900
 	CellMargin    = 32

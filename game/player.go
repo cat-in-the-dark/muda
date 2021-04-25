@@ -6,11 +6,16 @@ import (
 )
 
 type Player struct {
-	x     float64
-	y     float64
-	speed float64
-	vp    *Viewport
-	state string
+	x        float64
+	y        float64
+	speed    float64
+	vp       *Viewport
+	state    string
+	collider Rect
+}
+
+func (p *Player) GetHitRect() Rect {
+	return p.collider.Move(p.x, p.y)
 }
 
 func NewPlayer(vp *Viewport) *Player {
@@ -20,6 +25,12 @@ func NewPlayer(vp *Viewport) *Player {
 		speed: 5,
 		vp:    vp,
 		state: "idle",
+		collider: Rect{
+			X:      (64 - 40) / 2,
+			Y:      0,
+			Width:  40,
+			Height: 64,
+		},
 	}
 }
 

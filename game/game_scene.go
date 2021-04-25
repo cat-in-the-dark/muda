@@ -2,6 +2,7 @@ package sszb
 
 import (
 	"github.com/hajimehoshi/ebiten/v2"
+	"log"
 )
 
 type GameScene struct {
@@ -26,6 +27,7 @@ func (g *GameScene) Activate() {
 
 func (g *GameScene) Update() {
 	g.player.Update()
+	g.checkCollisions()
 }
 
 func (g *GameScene) Draw(screen *ebiten.Image) {
@@ -48,4 +50,25 @@ func (g *GameScene) Draw(screen *ebiten.Image) {
 
 func (g *GameScene) Exit() {
 
+}
+
+func (g *GameScene) checkCollisions() {
+	for _, treasure := range g.gameMap.treasures {
+		if Collide(treasure, g.player) {
+			g.collideWithTreasure(treasure)
+		}
+	}
+	for _, obelisk := range g.gameMap.obelisks {
+		if Collide(obelisk, g.player) {
+			g.collideWithObelisk(obelisk)
+		}
+	}
+}
+
+func (g *GameScene) collideWithTreasure(treasure *Treasure) {
+	log.Printf("Collide %v", treasure)
+}
+
+func (g *GameScene) collideWithObelisk(obelisk *Obelisk) {
+	log.Printf("Collide %v", obelisk)
 }
