@@ -13,7 +13,8 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	ebiten.SetWindowSize(game.ScreenWidth, game.ScreenHeight)
+	//ebiten.SetWindowSize(game.ScreenWidth, game.ScreenHeight)
+	ebiten.SetFullscreen(true)
 	ebiten.SetWindowTitle("Manager's Ubelievable Daydream Adventures")
 	if err := ebiten.RunGame(g); err != nil {
 		log.Fatal(err)
