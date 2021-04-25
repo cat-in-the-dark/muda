@@ -19,7 +19,8 @@ const (
 var cells [CellRows * CellColumns]*Cell
 
 type Map struct {
-	trees []*Tree
+	trees     []*Tree
+	treasures []*Treasure
 }
 
 type MapGenerator struct {
@@ -52,6 +53,14 @@ func (mg *MapGenerator) GenerateTrees(size int, cell *Cell) []*Tree {
 		trees[i] = NewTree(pos, mg.vp)
 	}
 	return trees
+}
+
+func (mg *MapGenerator) GenerateTreasures() []*Treasure {
+	treasures := make([]*Treasure, 5)
+	for i := range treasures {
+
+	}
+	return treasures
 }
 
 func CheckTreePosition(x, y float64, trees []*Tree) bool {
