@@ -14,7 +14,7 @@ type Obelisk struct {
 func NewObelisk(pos *Vector2, vp *Viewport, tt int32) *Obelisk {
 	return &Obelisk{
 		pos:          pos,
-		texture:      ObeliskTexture,
+		texture:      ObeliskTextures[tt],
 		treasureType: tt,
 		vp:           vp,
 		collider: Rect{

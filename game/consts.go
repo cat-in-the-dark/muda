@@ -34,8 +34,7 @@ var (
 	ColorHudBody = HexToColor("f0f6f0")
 	ColorText    = HexToColor("000000")
 
-	LogoTexture    *ebiten.Image
-	ObeliskTexture *ebiten.Image
+	LogoTexture *ebiten.Image
 
 	PlayerIdleTexture  *ebiten.Image
 	PlayerDownTexture  *ebiten.Image
@@ -44,7 +43,10 @@ var (
 
 	FaceTexture *ebiten.Image
 
+	ObeliskDoneTexture *ebiten.Image
+
 	TreeTextures     []*ebiten.Image
+	ObeliskTextures  []*ebiten.Image
 	TreasureTextures []*ebiten.Image
 
 	Animator        *lib.AnimationSystem
@@ -76,6 +78,7 @@ func LoadAssets() {
 	TreeTextures = []*ebiten.Image{
 		assets.LoadImage("tree1.png"),
 		assets.LoadImage("tree2.png"),
+		assets.LoadImage("bush.png"),
 	}
 
 	PlayerIdleTexture = assets.LoadImage("stay.png")
@@ -83,7 +86,15 @@ func LoadAssets() {
 	PlayerUpTexture = assets.LoadImage("walking_up.png")
 	PlayerRightTexture = assets.LoadImage("walking_right.png")
 
-	ObeliskTexture = assets.LoadImage("obelisk.png")
+	ObeliskDoneTexture = assets.LoadImage("obelisk.png")
+	ObeliskTextures = []*ebiten.Image{
+		assets.LoadImage("obelisk_crane.png"),
+		assets.LoadImage("obelisk_frog.png"),
+		assets.LoadImage("obelisk_squirrel.png"),
+		assets.LoadImage("obelisk_star.png"),
+		assets.LoadImage("obelisk_elephant.png"),
+		assets.LoadImage("obelisk_dragon.png"),
+	}
 
 	playerIdleSheet := lib.NewSpriteSheet(PlayerIdleTexture, 64, 64)
 	playerDownSheet := lib.NewSpriteSheet(PlayerDownTexture, 64, 64)
