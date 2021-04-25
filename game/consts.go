@@ -20,8 +20,8 @@ const (
 	GameSceneName          = "GAME_SCENE"
 	GameEndName            = "GAME_END"
 
-	PlayerStartPosX = 128
-	PlayerStartPosY = 128
+	PlayerStartPosX = 2400
+	PlayerStartPosY = 1350
 
 	HudWidth   = 512
 	HudHeight  = 128

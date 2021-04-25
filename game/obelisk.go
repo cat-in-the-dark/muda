@@ -18,10 +18,10 @@ func NewObelisk(pos *Vector2, vp *Viewport, tt int32) *Obelisk {
 		treasureType: tt,
 		vp:           vp,
 		collider: Rect{
-			X:      0,
-			Y:      0,
-			Width:  128,
-			Height: 128,
+			X:      32,
+			Y:      64,
+			Width:  32,
+			Height: 64,
 		},
 	}
 }
