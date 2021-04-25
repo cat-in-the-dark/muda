@@ -1,10 +1,10 @@
 package sszb
 
 import (
+	"fmt"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/hajimehoshi/ebiten/v2/text"
-	"strconv"
 )
 
 type Status struct {
@@ -40,23 +40,9 @@ func (st *Status) Draw(screen *ebiten.Image) {
 		screen.DrawImage(TreasureTextures[i], opt)
 		text.Draw(
 			screen,
-			strconv.Itoa(count),
+			fmt.Sprintf("%2d/%2d", count, (*st.trTotal)[i]),
 			DefaultFont,
 			int(st.pos.x+(st.txtOffset.x*float64(i)*15)+206),
-			int(st.pos.y+st.txtOffset.y),
-			ColorText)
-		text.Draw(
-			screen,
-			"/",
-			DefaultFont,
-			int(st.pos.x+(st.txtOffset.x*float64(i)*15)+231),
-			int(st.pos.y+st.txtOffset.y-2),
-			ColorText)
-		text.Draw(
-			screen,
-			strconv.Itoa((*st.trTotal)[i]),
-			DefaultFont,
-			int(st.pos.x+(st.txtOffset.x*float64(i)*15)+244),
 			int(st.pos.y+st.txtOffset.y),
 			ColorText)
 	}
