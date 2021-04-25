@@ -6,11 +6,12 @@ import (
 )
 
 type Player struct {
-	pos      *Vector2
-	speed    float64
-	vp       *Viewport
-	state    string
-	collider Rect
+	pos       *Vector2
+	speed     float64
+	vp        *Viewport
+	state     string
+	treasures []*Treasure
+	collider  Rect
 }
 
 func (p *Player) GetHitRect() Rect {
@@ -29,6 +30,7 @@ func NewPlayer(vp *Viewport) *Player {
 			Width:  40,
 			Height: 64,
 		},
+		treasures: make([]*Treasure, 0),
 	}
 }
 

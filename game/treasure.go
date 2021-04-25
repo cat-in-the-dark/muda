@@ -2,9 +2,11 @@ package sszb
 
 import (
 	"github.com/hajimehoshi/ebiten/v2"
+	"math/rand"
 )
 
 type Treasure struct {
+	id          int32
 	texture     *ebiten.Image
 	pos         *Vector2
 	vp          *Viewport
@@ -14,6 +16,7 @@ type Treasure struct {
 
 func NewTreasure(pos *Vector2, vp *Viewport, ot int32) *Treasure {
 	return &Treasure{
+		id:          rand.Int31(),
 		texture:     TreasureTextures[ot],
 		pos:         pos,
 		vp:          vp,

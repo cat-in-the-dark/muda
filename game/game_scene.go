@@ -2,6 +2,7 @@ package sszb
 
 import (
 	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"log"
 	"sort"
 )
@@ -64,22 +65,37 @@ func (g *GameScene) Exit() {
 }
 
 func (g *GameScene) checkCollisions() {
-	for _, treasure := range g.gameMap.treasures {
+	trCollected := false
+	trIndex := -1
+	for i, treasure := range g.gameMap.treasures {
 		if Collide(treasure, g.player) {
-			g.collideWithTreasure(treasure)
+			trCollected, trIndex = g.collideWithTreasure(treasure, i)
 		}
 	}
-	for _, obelisk := range g.gameMap.obelisks {
+	for i, obelisk := range g.gameMap.obelisks {
 		if Collide(obelisk, g.player) {
-			g.collideWithObelisk(obelisk)
+			g.collideWithObelisk(obelisk, i)
 		}
+	}
+	if trCollected && trIndex != -1 {
+		g.gameMap.treasures = removeTreasure(g.gameMap.treasures, trIndex)
 	}
 }
 
-func (g *GameScene) collideWithTreasure(treasure *Treasure) {
-	log.Printf("Collide %v", treasure)
+func (g *GameScene) collideWithTreasure(treasure *Treasure, index int) (bool, int) {
+	if inpututil.IsKeyJustPressed(ebiten.KeyF) {
+		g.player.treasures = append(g.player.treasures, treasure)
+		log.Printf("Added treasureId %d to player inventory", treasure.id)
+		return true, index
+	}
+	return false, -1
 }
 
-func (g *GameScene) collideWithObelisk(obelisk *Obelisk) {
-	log.Printf("Collide %v", obelisk)
+func (g *GameScene) collideWithObelisk(obelisk *Obelisk, index int) {
+	//log.Printf("Collide %v", obelisk)
+}
+
+func removeTreasure(t []*Treasure, i int) []*Treasure {
+	t[len(t)-1], t[i] = t[i], t[len(t)-1]
+	return t[:len(t)-1]
 }
