@@ -5,7 +5,6 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"log"
-	"math/rand"
 	"sort"
 )
 
@@ -39,18 +38,7 @@ func (g *GameScene) Activate() {
 	g.gameMap = g.mapGenerator.Generate()
 	g.treasureLeft = g.gameMap.treasureTotal
 	g.status.Show(&g.treasureCount)
-	g.showHelp()
-}
-
-func (g *GameScene) showHelp() {
-	g.hud.ShowReset(NewMessage(WelcomeMessage, 60*10))
-}
-
-func (g *GameScene) showJustText() {
-	if rand.Int31n(JustTextProba) == 0 {
-		text := JustText[rand.Int31n(int32(len(JustText)))]
-		g.hud.Show(NewMessage(text, 60*15))
-	}
+	g.hud.showHelp()
 }
 
 func (g *GameScene) Update() {
@@ -58,10 +46,6 @@ func (g *GameScene) Update() {
 	g.checkCollisions()
 	g.hud.Update()
 	g.status.Update()
-	if inpututil.IsKeyJustPressed(ebiten.KeySpace) || inpututil.IsKeyJustPressed(ebiten.KeyEnter) {
-		g.showHelp()
-	}
-	g.showJustText()
 	if g.checkVictory() {
 		g.sm.ChangeScene(GameEndName)
 	}

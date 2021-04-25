@@ -24,10 +24,10 @@ const (
 	PlayerStartPosY = 1350
 
 	HudWidth   = 784
-	HudHeight  = 128
+	HudHeight  = 160
 	HudOffsetY = 32
 
-	JustTextProba = 60 * 6
+	ShowTextFrames = 60 * 20
 )
 
 var (

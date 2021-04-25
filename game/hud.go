@@ -6,6 +6,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"github.com/hajimehoshi/ebiten/v2/text"
 	"golang.org/x/image/font"
+	"math/rand"
 )
 
 type Message struct {
@@ -44,6 +45,8 @@ type Hud struct {
 	messages  []*Message
 	lw        float64 // line width
 	txtOffset *Vector2
+
+	framesLastTextShown int64
 }
 
 func NewHud() *Hud {
@@ -53,6 +56,7 @@ func NewHud() *Hud {
 		messages:  make([]*Message, 0),
 		lw:        2,
 		txtOffset: NewVector2(8, 8+FontSize),
+		framesLastTextShown: 0,
 	}
 }
 
@@ -84,10 +88,32 @@ func (h *Hud) Draw(screen *ebiten.Image) {
 
 	text.Draw(screen, msg.text, msg.font, int(h.pos.x+h.txtOffset.x), int(h.pos.y+h.txtOffset.y), ColorText)
 
+	opts := &ebiten.DrawImageOptions{}
+	opts.GeoM.Translate(h.pos.x+(h.size.x-160), h.pos.y)
+	screen.DrawImage(FaceTexture, opts)
+
 	h.messages[0].framesElapsed++
 	if h.messages[0].IsExpired() {
 		h.messages = h.messages[1:]
 	}
 }
 
-func (h *Hud) Update() {}
+func (h *Hud) showHelp() {
+	h.ShowReset(NewMessage(WelcomeMessage, 60*10))
+}
+
+func (h *Hud) showJustText() {
+	txt := JustText[rand.Int31n(int32(len(JustText)))]
+	h.Show(NewMessage(txt, 60*15))
+}
+
+func (h *Hud) Update() {
+	if inpututil.IsKeyJustPressed(ebiten.KeySpace) || inpututil.IsKeyJustPressed(ebiten.KeyEnter) {
+		h.showHelp()
+	}
+	h.framesLastTextShown++
+	if h.framesLastTextShown >= ShowTextFrames {
+		h.showJustText()
+		h.framesLastTextShown = 0
+	}
+}
