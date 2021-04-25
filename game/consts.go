@@ -5,11 +5,14 @@ import (
 	"github.com/cat-in-the-dark/muda/assets"
 	"github.com/cat-in-the-dark/muda/lib"
 	"github.com/hajimehoshi/ebiten/v2"
+	"golang.org/x/image/font"
+	"golang.org/x/image/font/opentype"
 	"image/color"
 	"log"
 )
 
 const (
+	FontSize               = 24
 	ScreenHeight           = 576
 	ScreenWidth            = 1024
 	LogoSceneName          = "LOGO"
@@ -25,6 +28,7 @@ var (
 	ColorBack    = HexToColor("f0f6f0")
 	ColorHudLine = HexToColor("000000")
 	ColorHudBody = HexToColor("f0f6f0")
+	ColorText    = HexToColor("000000")
 
 	LogoTexture    *ebiten.Image
 	ObeliskTexture *ebiten.Image
@@ -44,6 +48,8 @@ var (
 	PlayerDownAnim  *lib.Animation
 	PlayerUpAnim    *lib.Animation
 	PlayerRightAnim *lib.Animation
+
+	DefaultFont font.Face
 )
 
 // LoadAssets loads textures and other global variables into the scope
@@ -84,6 +90,17 @@ func LoadAssets() {
 	PlayerDownAnim = Animator.NewLooping(playerDownSheet, 8, []int{0, 1, 2, 3, 4, 5, 6, 7, 8})
 	PlayerUpAnim = Animator.NewLooping(playerUpSheet, 8, []int{0, 1, 2, 3, 4, 5, 6, 7, 8})
 	PlayerRightAnim = Animator.NewLooping(playerRightSheet, 8, []int{0, 1, 2, 3, 4, 5, 6})
+
+	var err error
+	tt := assets.LoadFont("cyrillic_pixel.ttf")
+	DefaultFont, err = opentype.NewFace(tt, &opentype.FaceOptions{
+		Size:    FontSize,
+		DPI:     76,
+		Hinting: font.HintingFull,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func HexToColor(hexColor string) color.Color {
