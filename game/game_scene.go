@@ -91,7 +91,7 @@ func (g *GameScene) checkCollisions() {
 	trIndex := -1
 	trType := -1
 	obOffer := false
-	obType := -1
+	var obType int32 = -1
 	for i, treasure := range g.gameMap.treasures {
 		if Collide(treasure, g.player) {
 			trCollected, trIndex, trType = g.collideWithTreasure(treasure, i)
@@ -114,6 +114,13 @@ func (g *GameScene) checkCollisions() {
 		log.Printf("Offered %d treasures to obelisk of type %d", g.treasureCount[obType], obType)
 		g.treasureCount[obType] = 0
 
+		for _, obelisk := range g.gameMap.obelisks {
+			if obelisk.treasureType == obType {
+				obelisk.texture = ObeliskDoneTexture
+				obelisk.treasureType = FinalType
+			}
+		}
+
 		log.Printf("Collected treasures: %v", g.treasureCount)
 		log.Printf("Treasures left: %v", g.treasureLeft)
 	}
@@ -131,9 +138,9 @@ func (g *GameScene) collideWithTreasure(treasure *Treasure, index int) (bool, in
 	return false, -1, -1
 }
 
-func (g *GameScene) collideWithObelisk(obelisk *Obelisk, index int) (bool, int) {
+func (g *GameScene) collideWithObelisk(obelisk *Obelisk, index int) (bool, int32) {
 	if inpututil.IsKeyJustPressed(ebiten.KeyF) {
-		return true, int(obelisk.treasureType)
+		return true, obelisk.treasureType
 	}
 
 	g.hud.ShowReset(NewMessage(SeeObelisk[obelisk.treasureType], 1))
