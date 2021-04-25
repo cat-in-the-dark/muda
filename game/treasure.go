@@ -50,3 +50,7 @@ func (tr *Treasure) Exit() {
 func (tr *Treasure) GetHitRect() Rect {
 	return tr.collider.Move(tr.pos.x, tr.pos.y)
 }
+
+func (tr *Treasure) GetPos() *Vector2 {
+	return tr.pos
+}

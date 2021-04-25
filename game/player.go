@@ -6,8 +6,7 @@ import (
 )
 
 type Player struct {
-	x        float64
-	y        float64
+	pos      *Vector2
 	speed    float64
 	vp       *Viewport
 	state    string
@@ -15,13 +14,12 @@ type Player struct {
 }
 
 func (p *Player) GetHitRect() Rect {
-	return p.collider.Move(p.x, p.y)
+	return p.collider.Move(p.pos.x, p.pos.y)
 }
 
 func NewPlayer(vp *Viewport) *Player {
 	return &Player{
-		x:     PlayerStartPosX,
-		y:     PlayerStartPosY,
+		pos:   NewVector2(PlayerStartPosX, PlayerStartPosY),
 		speed: 5,
 		vp:    vp,
 		state: "idle",
@@ -37,22 +35,22 @@ func NewPlayer(vp *Viewport) *Player {
 func (p *Player) Update() {
 	p.state = "idle"
 	if ebiten.IsKeyPressed(ebiten.KeyUp) {
-		p.y -= p.speed
+		p.pos.y -= p.speed
 		p.vp.y -= p.speed
 		p.state = "up"
 	}
 	if ebiten.IsKeyPressed(ebiten.KeyDown) {
-		p.y += p.speed
+		p.pos.y += p.speed
 		p.vp.y += p.speed
 		p.state = "down"
 	}
 	if ebiten.IsKeyPressed(ebiten.KeyLeft) {
-		p.x -= p.speed
+		p.pos.x -= p.speed
 		p.vp.x -= p.speed
 		p.state = "left"
 	}
 	if ebiten.IsKeyPressed(ebiten.KeyRight) {
-		p.x += p.speed
+		p.pos.x += p.speed
 		p.vp.x += p.speed
 		p.state = "right"
 	}
@@ -77,8 +75,8 @@ func (p *Player) Draw(screen *ebiten.Image) {
 
 	opt := &ebiten.DrawImageOptions{}
 
-	x := p.x - p.vp.x
-	y := p.y - p.vp.y
+	x := p.pos.x - p.vp.x
+	y := p.pos.y - p.vp.y
 
 	if p.state == "left" {
 		opt.GeoM.Scale(-1, 1)
@@ -88,5 +86,8 @@ func (p *Player) Draw(screen *ebiten.Image) {
 	opt.GeoM.Translate(x, y)
 
 	screen.DrawImage(frame, opt)
+}
 
+func (p *Player) GetPos() *Vector2 {
+	return p.pos
 }

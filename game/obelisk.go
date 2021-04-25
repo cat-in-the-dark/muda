@@ -8,7 +8,7 @@ type Obelisk struct {
 	texture      *ebiten.Image
 	treasureType int32
 	vp           *Viewport
-	collider Rect
+	collider     Rect
 }
 
 func NewObelisk(pos *Vector2, vp *Viewport, tt int32) *Obelisk {
@@ -40,4 +40,8 @@ func (o *Obelisk) Draw(screen *ebiten.Image) {
 
 func (o *Obelisk) GetHitRect() Rect {
 	return o.collider.Move(o.pos.x, o.pos.y)
+}
+
+func (o *Obelisk) GetPos() *Vector2 {
+	return o.pos
 }
