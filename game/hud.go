@@ -48,8 +48,8 @@ type Hud struct {
 
 func NewHud() *Hud {
 	return &Hud{
-		pos:       NewVector2(256, 256),
-		size:      NewVector2(256, 64),
+		pos:       NewVector2((ScreenWidth-HudWidth)/2, ScreenHeight-HudHeight-HudOffsetY),
+		size:      NewVector2(HudWidth, HudHeight),
 		messages:  make([]*Message, 0),
 		lw:        2,
 		txtOffset: NewVector2(8, 8+FontSize),

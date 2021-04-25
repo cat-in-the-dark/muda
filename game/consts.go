@@ -22,6 +22,10 @@ const (
 
 	PlayerStartPosX = 128
 	PlayerStartPosY = 128
+
+	HudWidth   = 512
+	HudHeight  = 128
+	HudOffsetY = 32
 )
 
 var (
