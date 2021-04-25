@@ -14,7 +14,8 @@ type GameScene struct {
 	gameMap       *Map
 	treasureCount []int
 	treasureLeft  []int
-	hud          *Hud
+	hud           *Hud
+	status        *Status
 }
 
 func NewGameScene() *GameScene {
@@ -24,8 +25,9 @@ func NewGameScene() *GameScene {
 		player:        NewPlayer(vp),
 		mapGenerator:  NewMapGenerator(20, vp),
 		treasureCount: make([]int, TreasureTypes),
-		treasureLeft: make([]int, TreasureTypes),
-		hud:          NewHud(),
+		treasureLeft:  make([]int, TreasureTypes),
+		hud:           NewHud(),
+		status:        NewStatus(),
 	}
 }
 
@@ -33,12 +35,14 @@ func (g *GameScene) Activate() {
 	g.gameMap = g.mapGenerator.Generate()
 	g.treasureLeft = g.gameMap.treasureTotal
 	g.hud.Show(NewMessage("Охайо", 60*10))
+	g.status.Show(&g.treasureCount)
 }
 
 func (g *GameScene) Update() {
 	g.player.Update()
 	g.checkCollisions()
 	g.hud.Update()
+	g.status.Update()
 }
 
 func (g *GameScene) Draw(screen *ebiten.Image) {
@@ -69,6 +73,7 @@ func (g *GameScene) Draw(screen *ebiten.Image) {
 	}
 
 	g.hud.Draw(screen)
+	g.status.Draw(screen)
 }
 
 func (g *GameScene) Exit() {
