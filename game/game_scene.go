@@ -37,7 +37,7 @@ func NewGameScene(sm *lib.SceneManager) *GameScene {
 func (g *GameScene) Activate() {
 	g.gameMap = g.mapGenerator.Generate()
 	g.treasureLeft = g.gameMap.treasureTotal
-	g.status.Show(&g.treasureCount)
+	g.status.Show(&g.treasureCount, &g.gameMap.treasureTotal)
 	g.hud.showHelp()
 }
 
