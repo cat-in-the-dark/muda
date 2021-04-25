@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	TreasureTypes = 4
+	TreasureTypes = 6
 	TreeTypes     = 2
 	CellRows      = 3
 	CellColumns   = 3

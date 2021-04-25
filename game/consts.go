@@ -22,18 +22,21 @@ const (
 )
 
 var (
-	ColorBack = HexToColor("f0f6f0")
+	ColorBack    = HexToColor("f0f6f0")
+	ColorHudLine = HexToColor("000000")
+	ColorHudBody = HexToColor("f0f6f0")
 
 	LogoTexture    *ebiten.Image
-	PlayerTexture  *ebiten.Image
 	ObeliskTexture *ebiten.Image
-	TreeTextures   []*ebiten.Image
 
 	PlayerIdleTexture  *ebiten.Image
 	PlayerDownTexture  *ebiten.Image
 	PlayerUpTexture    *ebiten.Image
 	PlayerRightTexture *ebiten.Image
 
+	FaceTexture *ebiten.Image
+
+	TreeTextures     []*ebiten.Image
 	TreasureTextures []*ebiten.Image
 
 	Animator        *lib.AnimationSystem
@@ -54,7 +57,11 @@ func LoadAssets() {
 		assets.LoadImage("frog.png"),
 		assets.LoadImage("squirrel.png"),
 		assets.LoadImage("star.png"),
+		assets.LoadImage("elephant.png"),
+		assets.LoadImage("dragon.png"),
 	}
+
+	FaceTexture = assets.LoadImage("face.png")
 
 	TreeTextures = []*ebiten.Image{
 		assets.LoadImage("tree1.png"),
