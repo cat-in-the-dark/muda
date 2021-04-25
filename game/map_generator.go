@@ -7,13 +7,16 @@ import (
 )
 
 const (
-	CellRows     = 3
-	CellColumns  = 3
-	TreesPerCell = 35
-	CellWidth    = 1600
-	CellHeight   = 900
-	CellMargin   = 32
-	TreeDistance = 100
+	CellRows      = 3
+	CellColumns   = 3
+	TreesPerCell  = 35
+	TreasureCount = 5
+	CellWidth     = 1600
+	CellHeight    = 900
+	CellMargin    = 32
+	TreeDistance  = 100
+	MapWidth      = CellColumns * CellWidth
+	MapHeight     = CellRows * CellHeight
 )
 
 var cells [CellRows * CellColumns]*Cell
@@ -55,10 +58,14 @@ func (mg *MapGenerator) GenerateTrees(size int, cell *Cell) []*Tree {
 	return trees
 }
 
-func (mg *MapGenerator) GenerateTreasures() []*Treasure {
-	treasures := make([]*Treasure, 5)
+func (mg *MapGenerator) GenerateTreasures(size int) []*Treasure {
+	treasures := make([]*Treasure, size)
 	for i := range treasures {
-
+		x := GenerateCoordinate(CellMargin, MapWidth-CellMargin)
+		y := GenerateCoordinate(CellMargin, MapHeight-CellMargin)
+		pos := NewVector2(x, y)
+		log.Printf("Generated treasure at x:%f, y:%f", pos.x, pos.y)
+		treasures[i] = NewTreasure(pos, mg.vp)
 	}
 	return treasures
 }
@@ -103,8 +110,10 @@ func (mg *MapGenerator) Generate() *Map {
 			trees = append(trees, tree)
 		}
 	}
+	treasures := mg.GenerateTreasures(TreasureCount)
 
 	return &Map{
-		trees: trees,
+		trees:     trees,
+		treasures: treasures,
 	}
 }

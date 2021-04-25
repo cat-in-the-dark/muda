@@ -39,6 +39,9 @@ func (g *GameScene) Draw(screen *ebiten.Image) {
 	for _, tree := range g.gameMap.trees {
 		tree.Draw(screen)
 	}
+	for _, treasure := range g.gameMap.treasures {
+		treasure.Draw(screen)
+	}
 	g.obelisk.Draw(screen)
 	g.player.Draw(screen)
 }
