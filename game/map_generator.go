@@ -85,7 +85,7 @@ func (mg *MapGenerator) GenerateObelisks(size int) []*Obelisk {
 		y := GenerateCoordinate(CellMargin, MapHeight-CellMargin)
 		pos := NewVector2(x, y)
 		log.Printf("Generated obelisk at x:%f, y:%f", pos.x, pos.y)
-		obelisks[i] = NewObelisk(pos, mg.vp, rand.Int31n(int32(TreasureTypes)))
+		obelisks[i] = NewObelisk(pos, mg.vp, int32(i%TreasureTypes))
 	}
 	return obelisks
 }
