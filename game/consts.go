@@ -47,6 +47,9 @@ var (
 
 	ObeliskDoneTexture *ebiten.Image
 
+	TitleScreenTexture   *ebiten.Image
+	VictoryScreenTexture *ebiten.Image
+
 	TreeTextures     []*ebiten.Image
 	ObeliskTextures  []*ebiten.Image
 	TreasureTextures []*ebiten.Image
@@ -87,6 +90,9 @@ func LoadAssets() {
 	PlayerDownTexture = assets.LoadImage("walking_down.png")
 	PlayerUpTexture = assets.LoadImage("walking_up.png")
 	PlayerRightTexture = assets.LoadImage("walking_right.png")
+
+	TitleScreenTexture = assets.LoadImage("glav_art.png")
+	VictoryScreenTexture = assets.LoadImage("win.png")
 
 	ObeliskDoneTexture = assets.LoadImage("obelisk.png")
 	ObeliskTextures = []*ebiten.Image{

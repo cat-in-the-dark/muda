@@ -1,6 +1,7 @@
 package sszb
 
 import (
+	"github.com/cat-in-the-dark/muda/lib"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"log"
@@ -17,9 +18,10 @@ type GameScene struct {
 	treasureLeft  []int
 	hud           *Hud
 	status        *Status
+	sm            *lib.SceneManager
 }
 
-func NewGameScene() *GameScene {
+func NewGameScene(sm *lib.SceneManager) *GameScene {
 	vp := NewViewport()
 	return &GameScene{
 		vp:            vp,
@@ -29,6 +31,7 @@ func NewGameScene() *GameScene {
 		treasureLeft:  make([]int, TreasureTypes),
 		hud:           NewHud(),
 		status:        NewStatus(),
+		sm:            sm,
 	}
 }
 
@@ -55,11 +58,13 @@ func (g *GameScene) Update() {
 	g.checkCollisions()
 	g.hud.Update()
 	g.status.Update()
-
 	if inpututil.IsKeyJustPressed(ebiten.KeySpace) || inpututil.IsKeyJustPressed(ebiten.KeyEnter) {
 		g.showHelp()
 	}
 	g.showJustText()
+	if g.checkVictory() {
+		g.sm.ChangeScene(GameEndName)
+	}
 }
 
 func (g *GameScene) Draw(screen *ebiten.Image) {
@@ -150,6 +155,16 @@ func (g *GameScene) collideWithObelisk(obelisk *Obelisk, index int) (bool, int) 
 	g.hud.ShowReset(NewMessage(SeeObelisk[obelisk.treasureType], 1))
 
 	return false, -1
+}
+
+func (g *GameScene) checkVictory() bool {
+	victory := true
+	for i := 0; i < TreasureTypes; i++ {
+		collected := g.treasureCount[i]
+		remaining := g.treasureLeft[i]
+		victory = victory && collected == remaining
+	}
+	return victory
 }
 
 func removeTreasure(t []*Treasure, i int) []*Treasure {
