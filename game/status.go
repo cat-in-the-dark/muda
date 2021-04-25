@@ -56,7 +56,7 @@ func (st *Status) Draw(screen *ebiten.Image) {
 			screen,
 			strconv.Itoa((*st.trTotal)[i]),
 			DefaultFont,
-			int(st.pos.x+(st.txtOffset.x*float64(i)*15)+240),
+			int(st.pos.x+(st.txtOffset.x*float64(i)*15)+244),
 			int(st.pos.y+st.txtOffset.y),
 			ColorText)
 	}
