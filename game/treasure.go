@@ -14,7 +14,7 @@ type Treasure struct {
 
 func NewTreasure(pos *Vector2, vp *Viewport, ot int32) *Treasure {
 	return &Treasure{
-		texture:     TreasureTexture,
+		texture:     TreasureTextures[ot],
 		pos:         pos,
 		vp:          vp,
 		obeliskType: ot,

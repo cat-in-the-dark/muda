@@ -10,9 +10,9 @@ type Tree struct {
 	vp      *Viewport
 }
 
-func NewTree(pos *Vector2, vp *Viewport) *Tree {
+func NewTree(pos *Vector2, vp *Viewport, ttype int32) *Tree {
 	return &Tree{
-		texture: TreeTexture,
+		texture: TreeTextures[ttype],
 		pos:     pos,
 		vp:      vp,
 	}

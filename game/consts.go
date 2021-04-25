@@ -27,15 +27,14 @@ var (
 	LogoTexture    *ebiten.Image
 	PlayerTexture  *ebiten.Image
 	ObeliskTexture *ebiten.Image
-	TreeTexture    *ebiten.Image
+	TreeTextures   []*ebiten.Image
 
 	PlayerIdleTexture  *ebiten.Image
 	PlayerDownTexture  *ebiten.Image
 	PlayerUpTexture    *ebiten.Image
 	PlayerRightTexture *ebiten.Image
 
-
-	TreasureTexture *ebiten.Image
+	TreasureTextures []*ebiten.Image
 
 	Animator        *lib.AnimationSystem
 	PlayerIdleAnim  *lib.Animation
@@ -50,14 +49,23 @@ func LoadAssets() {
 	Animator = lib.NewAnimationSystem()
 	LogoTexture = assets.LoadImage("logo.png")
 
-	TreasureTexture = assets.LoadImage("crane.png")
+	TreasureTextures = []*ebiten.Image{
+		assets.LoadImage("crane.png"),
+		assets.LoadImage("frog.png"),
+		assets.LoadImage("squirrel.png"),
+		assets.LoadImage("star.png"),
+	}
+
+	TreeTextures = []*ebiten.Image{
+		assets.LoadImage("tree1.png"),
+		assets.LoadImage("tree2.png"),
+	}
 
 	PlayerIdleTexture = assets.LoadImage("stay.png")
 	PlayerDownTexture = assets.LoadImage("walking_down.png")
 	PlayerUpTexture = assets.LoadImage("walking_up.png")
 	PlayerRightTexture = assets.LoadImage("walking_right.png")
 
-	TreeTexture = assets.LoadImage("tree1.png")
 	ObeliskTexture = assets.LoadImage("obelisk.png")
 
 	playerIdleSheet := lib.NewSpriteSheet(PlayerIdleTexture, 64, 64)
