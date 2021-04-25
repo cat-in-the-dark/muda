@@ -57,6 +57,12 @@ func NewHud() *Hud {
 }
 
 func (h *Hud) Show(message *Message) {
+	if len(h.messages) != 0 {
+		// Ignore same messages
+		if h.messages[len(h.messages)-1].text == message.text {
+			return
+		}
+	}
 	h.messages = append(h.messages, message)
 }
 
@@ -72,15 +78,11 @@ func (h *Hud) Draw(screen *ebiten.Image) {
 	ebitenutil.DrawRect(screen, h.pos.x+h.lw, h.pos.y+h.lw, h.size.x-h.lw*2, h.size.y-h.lw*2, ColorHudBody)
 
 	text.Draw(screen, msg.text, msg.font, int(h.pos.x+h.txtOffset.x), int(h.pos.y+h.txtOffset.y), ColorText)
-}
-
-func (h *Hud) Update() {
-	if len(h.messages) == 0 {
-		return
-	}
 
 	h.messages[0].framesElapsed++
 	if h.messages[0].IsExpired() {
 		h.messages = h.messages[1:]
 	}
 }
+
+func (h *Hud) Update() {}

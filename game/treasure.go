@@ -6,21 +6,21 @@ import (
 )
 
 type Treasure struct {
-	id       int32
-	texture  *ebiten.Image
-	pos      *Vector2
-	vp       *Viewport
-	trType   int32
-	collider Rect
+	id           int32
+	texture      *ebiten.Image
+	pos          *Vector2
+	vp           *Viewport
+	treasureType int32
+	collider     Rect
 }
 
 func NewTreasure(pos *Vector2, vp *Viewport, ot int32) *Treasure {
 	return &Treasure{
-		id:      rand.Int31(),
-		texture: TreasureTextures[ot],
-		pos:     pos,
-		vp:      vp,
-		trType:  ot,
+		id:           rand.Int31(),
+		texture:      TreasureTextures[ot],
+		pos:          pos,
+		vp:           vp,
+		treasureType: ot,
 		collider: Rect{
 			X:      0,
 			Y:      0,

@@ -117,8 +117,11 @@ func (g *GameScene) collideWithTreasure(treasure *Treasure, index int) (bool, in
 	if inpututil.IsKeyJustPressed(ebiten.KeyF) {
 		g.player.treasures = append(g.player.treasures, treasure)
 		log.Printf("Added treasureId %d to player inventory", treasure.id)
-		return true, index, int(treasure.trType)
+		return true, index, int(treasure.treasureType)
 	}
+
+	g.hud.Show(NewMessage(SeeTreasure[treasure.treasureType], 1))
+
 	return false, -1, -1
 }
 
@@ -126,6 +129,9 @@ func (g *GameScene) collideWithObelisk(obelisk *Obelisk, index int) (bool, int) 
 	if inpututil.IsKeyJustPressed(ebiten.KeyF) {
 		return true, int(obelisk.treasureType)
 	}
+
+	g.hud.Show(NewMessage(SeeObelisk[obelisk.treasureType], 1))
+
 	return false, -1
 }
 
