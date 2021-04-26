@@ -1,5 +1,5 @@
 *.wasm
-build/web/wasm_exec.js
 *.exe
 .idea
 .DS_Store
+*.zip
